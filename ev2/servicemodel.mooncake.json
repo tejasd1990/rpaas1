@@ -1,0 +1,47 @@
+{
+    "$schema": "http://schema.express.azure.com/schemas/2015-01-01-alpha/ServiceModel.json",
+    "ContentVersion": "0.0.0.1",
+    "ServiceMetadata": {
+      "ServiceGroup": "RPSAASGroup",
+      "Environment": "Mooncake"
+    },
+    "ServiceResourceGroupDefinitions": [
+      {
+        "Name": "ContosoACRImport",
+        "ServiceResourceDefinitions": [
+          {
+            "Name": "EV2Shell",
+            "ComposedOf": {
+              "Extension": {
+                "Shell": [
+                  {
+                    "Type": "ACRImport",
+                    "Properties": {
+                      "ImageName": "adm-ubuntu-1804-l",
+                      "ImageVersion": "v7"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "ServiceResourceGroups": [
+      {
+        "Name": "ContosoACR",
+        "AzureResourceGroupName": "ContosoACR",
+        "Location": "China East 2",
+        "AzureSubscriptionId": "de932dc7-3baf-44a0-8ec3-b7440ecd2527",
+        "InstanceOf": "ContosoACRImport",
+        "ServiceResources": [
+          {
+            "Name": "ACRImport",
+            "InstanceOf": "EV2Shell",
+            "RolloutParametersPath": "Parameters\\rolloutparameters.mooncake.json"
+          }
+        ]
+      }
+    ]
+  }

@@ -1,0 +1,47 @@
+{
+  "$schema": "http://schema.express.azure.com/schemas/2015-01-01-alpha/ServiceModel.json",
+  "ContentVersion": "0.0.0.1",
+  "ServiceMetadata": {
+    "ServiceGroup": "RPSAASGroup",
+    "Environment": "Test"
+  },
+  "ServiceResourceGroupDefinitions": [
+    {
+      "Name": "ContosoACRImport",
+      "ServiceResourceDefinitions": [
+        {
+          "Name": "EV2Shell",
+          "ComposedOf": {
+            "Extension": {
+              "Shell": [
+                {
+                  "Type": "ACRImport",
+                  "Properties": {
+                    "ImageName": "adm-ubuntu-1804-l",
+                    "ImageVersion": "v7"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "ServiceResourceGroups": [
+    {
+      "Name": "ContosoACR",
+      "AzureResourceGroupName": "ContosoACR",
+      "Location": "West US",
+      "AzureSubscriptionId": "6f53185c-ea09-4fc3-9075-318dec805303",
+      "InstanceOf": "ContosoACRImport",
+      "ServiceResources": [
+        {
+          "Name": "ACRImport",
+          "InstanceOf": "EV2Shell",
+          "RolloutParametersPath": "Parameters\\rolloutparameters.dogfood.json"
+        }
+      ]
+    }
+  ]
+}

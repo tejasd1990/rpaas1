@@ -1,0 +1,47 @@
+{
+    "$schema": "http://schema.express.azure.com/schemas/2015-01-01-alpha/ServiceModel.json",
+    "ContentVersion": "0.0.0.1",
+    "ServiceMetadata": {
+      "ServiceGroup": "RPSAASGroup",
+      "Environment": "Prod"
+    },
+    "ServiceResourceGroupDefinitions": [
+      {
+        "Name": "ContosoACRImport",
+        "ServiceResourceDefinitions": [
+          {
+            "Name": "EV2Shell",
+            "ComposedOf": {
+              "Extension": {
+                "Shell": [
+                  {
+                    "Type": "ACRImport",
+                    "Properties": {
+                      "ImageName": "adm-ubuntu-1804-l",
+                      "ImageVersion": "v7"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "ServiceResourceGroups": [
+      {
+        "Name": "ContosoACR",
+        "AzureResourceGroupName": "ContosoACR",
+        "Location": "West US",
+        "AzureSubscriptionId": "d370dde1-4f84-414c-818f-919c61590320",
+        "InstanceOf": "ContosoACRImport",
+        "ServiceResources": [
+          {
+            "Name": "ACRImport",
+            "InstanceOf": "EV2Shell",
+            "RolloutParametersPath": "Parameters\\rolloutparameters.production.json"
+          }
+        ]
+      }
+    ]
+  }

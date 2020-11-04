@@ -1,0 +1,24 @@
+{
+  "$schema": "http://schema.express.azure.com/schemas/2015-01-01-alpha/RolloutSpec.json",
+  "ContentVersion": "1.0.0.0",
+  "RolloutMetadata": {
+    "ServiceModelPath": "servicemodel.dogfood.json",
+    "Name": "RPSAAS Contoso ACR Import",
+    "RolloutType": "Major",
+    "BuildSource": {
+      "Parameters": {
+        "VersionFile": "numeric.fileversion.info"
+      }
+    }
+  },
+  "OrchestratedSteps": [
+    {
+      "Name": "DogfoodACRImport",
+      "TargetType": "ServiceResource",
+      "TargetName": "ACRImport",
+      "Actions": [
+        "Shell/deploy-import-acr"
+      ]
+    }
+  ]
+}

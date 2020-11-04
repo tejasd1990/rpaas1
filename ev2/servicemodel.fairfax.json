@@ -1,0 +1,47 @@
+{
+    "$schema": "http://schema.express.azure.com/schemas/2015-01-01-alpha/ServiceModel.json",
+    "ContentVersion": "0.0.0.1",
+    "ServiceMetadata": {
+      "ServiceGroup": "RPSAASGroup",
+      "Environment": "Fairfax"
+    },
+    "ServiceResourceGroupDefinitions": [
+      {
+        "Name": "ContosoACRImport",
+        "ServiceResourceDefinitions": [
+          {
+            "Name": "EV2Shell",
+            "ComposedOf": {
+              "Extension": {
+                "Shell": [
+                  {
+                    "Type": "ACRImport",
+                    "Properties": {
+                      "ImageName": "adm-ubuntu-1804-l",
+                      "ImageVersion": "v7"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "ServiceResourceGroups": [
+      {
+        "Name": "ContosoACR",
+        "AzureResourceGroupName": "ContosoACR",
+        "Location": "USGov Virginia",
+        "AzureSubscriptionId": "40c337a2-85a1-4a3d-a444-18dbc4e041e5",
+        "InstanceOf": "ContosoACRImport",
+        "ServiceResources": [
+          {
+            "Name": "ACRImport",
+            "InstanceOf": "EV2Shell",
+            "RolloutParametersPath": "Parameters\\rolloutparameters.fairfax.usgovvirginia.json"
+          }
+        ]
+      }
+    ]
+  }

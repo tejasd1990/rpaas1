@@ -1,0 +1,41 @@
+{
+  "$schema": "http://schema.express.azure.com/schema/2015-01-01-alpha/RolloutParameters.json",
+  "contentVersion": "1.0.0.0",
+  "ShellExtensions": [
+    {
+      "Name": "deploy-import-acr",
+      "Type": "ACRImport",
+      "Properties": {
+        "MaxExecutionTime": "PT30M"
+      },
+      "Package": {
+        "Reference": {
+          "Path": "deploy.tar"
+        }
+      },
+      "Launch": {
+        "Command": [
+          "deploy_dogfood.sh"
+        ],
+        "secretVolumes": [
+          {
+            "name": "secretsvolume1",
+            "mountPath": "/mnt/secrets",
+            "secrets": [
+              {
+                "name": "ClustersSPSecret",
+                "reference": {
+                  "provider": "AzureKeyVault",
+                  "parameters": {
+                    "secretId": "https://rpsaasdogfood.vault.azure.net/secrets/ClustersSPSecret"
+                  }
+                },
+                "convertToBase64": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
